@@ -30,6 +30,8 @@ function App() {
   let [rate, setRate] = useState(0);
   let [page, setPage] = useState(1);
   let [totalResult, setTotalResult] = useState(0);
+  let [genres, setGenres] = useState([]);
+
 
   let CurrentPlaying = async () => {
     let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=${page}`
@@ -38,6 +40,10 @@ function App() {
     setTotalResult(dataResult.total_results);
     movie_List = dataResult.results;
     setMovies(dataResult.results);
+    let GenreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
+    let GenreResponse = await fetch(GenreUrl);
+    let genreListObject = await GenreResponse.json();
+    setGenres(genreListObject.genres);
   };
 
   let playmore = async () => {
@@ -67,12 +73,11 @@ function App() {
     }
   }
 
-  let sortByPopularity = () => {
-    // let sortedMovie = movies.sort((a, b) => a.popularity - b.popularity);
-    let sortedMovie = [...movies].sort((a, b)=> b.popularity - a.popularity);
-    setMovies([]);
-    setMovies(sortedMovie);
-  }
+  // let sortByPopularity = () => {
+  //   let sortedMovie = [...movies].sort((a, b)=> b.popularity - a.popularity);
+  //   setMovies([]);
+  //   setMovies(sortedMovie);
+  // }
 
   let openModal = async (movieId) => { //movie_id
     let url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=en-US`
@@ -96,11 +101,12 @@ function App() {
     setMovies(dataResult.results);
   }
 
+
   return (
 
     <div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">Khai's Movie</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -121,13 +127,13 @@ function App() {
             className="mr-sm-2" 
             onChange={e => searchByKeyword(e)} 
             />
-            <Button onClick={() => searchByKeyword()} variant="outline-success">
+            {/* <Button onClick={() => searchByKeyword()} variant="outline-success">
               Search
-              </Button>
+              </Button> */}
           </Form>
-          <Button onClick={() => sortByPopularity()} variant = "outline-success">
+          {/* <Button onClick={() => sortByPopularity()} variant = "outline-success">
             most popular
-          </Button>
+          </Button> */}
         </Navbar.Collapse>
       </Navbar>
 
@@ -138,7 +144,7 @@ function App() {
         onChange={value => searchByRate(value)} />
 
    
-      <Movie movieList={movies} openModal={openModal} />
+      <Movie movieList={movies} genreList={genres}  openModal={openModal} />
   
       <ReactModal
         isOpen={modal}
@@ -163,7 +169,7 @@ function App() {
         }}
         onRequestClose={() => setModal(false)}>
 
-        <Youtube video={trailer} autoPlay className="video" />
+        <Youtube video={trailer} className="video" />
       </ReactModal>
 
       <Pagination
