@@ -29,7 +29,7 @@ export default function Movie(props) {
          )
      })
     return (
-        <div>
+        <div className="row"> 
             {htmlMovie}
         </div>
     )
