@@ -100,6 +100,7 @@ function App() {
     let data = await fetch(url)
     let dataResult = await data.json();
     setMovies(dataResult.results);
+    CurrentPlaying();
   }
 
 
