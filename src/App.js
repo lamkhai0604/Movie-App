@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import logo from "./logo.svg";
+import imdb from "./imdb.png";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -56,6 +56,7 @@ function App() {
   useEffect(CurrentPlaying, [], []);
   useEffect(playmore, []);
 
+
   if (movies == null) {
     return <div>loading the movie</div>;
   }
@@ -89,7 +90,7 @@ function App() {
 
   let searchByRate = (value) => {
     setRate(value);
-    let filteredData = movie_List.filter((movie) => movie.vote_average>=value)
+    let filteredData = movie_List.filter((movie) => movie.vote_average >= value)
     setMovies(filteredData)
   }
 
@@ -106,10 +107,18 @@ function App() {
 
     <div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Khai's Movie</Navbar.Brand>
+        <Navbar.Brand href="#home">
+          <img
+            src={imdb}
+            style={{
+              width: "200px",
+              height : "80px",
+              marginLeft : "30px"
+            }} />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+        <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-center">
+          {/* <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -119,21 +128,20 @@ function App() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>
-          </Nav>
-          <Form inline>
-            <FormControl 
-            type="text" 
-            placeholder="Search" 
-            className="mr-sm-2" 
-            onChange={e => searchByKeyword(e)} 
-            />
-            {/* <Button onClick={() => searchByKeyword()} variant="outline-success">
-              Search
-              </Button> */}
+          </Nav> */}
+          <Form>
+            <FormControl
+              type="text"
+              placeholder="Search..."
+              className="form-control"
+              style={{
+                backgroundColor: "rgba(192,192,192,0.2)",
+                borderRadius: "20px",
+                border: "none",
+                padding: "0px 150px 0px 150px"
+              }}
+              onChange={e => searchByKeyword(e)} />
           </Form>
-          {/* <Button onClick={() => sortByPopularity()} variant = "outline-success">
-            most popular
-          </Button> */}
         </Navbar.Collapse>
       </Navbar>
 
@@ -143,9 +151,9 @@ function App() {
         value={rate}
         onChange={value => searchByRate(value)} />
 
-   
-      <Movie movieList={movies} genreList={genres}  openModal={openModal} />
-  
+
+      <Movie movieList={movies} genreList={genres} openModal={openModal} />
+
       <ReactModal
         isOpen={modal}
         style={{
@@ -171,7 +179,7 @@ function App() {
 
         <Youtube video={trailer} className="video" />
       </ReactModal>
-
+        <div className = "d-flex justify-content-center my-2">
       <Pagination
         activePage={page}
         itemsCountPerPage={20}
@@ -180,7 +188,7 @@ function App() {
         onChange={handlePageChange.bind(this)}
         itemClass="page-item"
         linkClass="page-link"
-      />
+      /></div>
     </div>
 
   );
