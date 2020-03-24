@@ -33,8 +33,8 @@ function App() {
   let [genres, setGenres] = useState([]);
 
 
-  let CurrentPlaying = async () => {
-    let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=${page}`
+  let CurrentPlaying = async (pageNumber) => {
+    let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=${pageNumber}`
     let data = await fetch(url)
     let dataResult = await data.json();
     setTotalResult(dataResult.total_results);
@@ -100,7 +100,7 @@ function App() {
     let data = await fetch(url)
     let dataResult = await data.json();
     setMovies(dataResult.results);
-    CurrentPlaying();
+    CurrentPlaying(pageNumber);
   }
 
 
