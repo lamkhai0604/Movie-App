@@ -1,6 +1,7 @@
+
 .App {
-  background-color: aquamarine;
-  text-align: center;
+  background-color: rgba(135, 135, 135, 1);
+  /* text-align: center; */
 }
 
 .App-logo {

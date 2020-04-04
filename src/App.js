@@ -107,7 +107,7 @@ function App() {
   return (
 
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="grey" expand="lg">
         <Navbar.Brand href="#home">
           <img
             src={imdb}
@@ -119,27 +119,15 @@ function App() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-center">
-          {/* <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
-          </Nav> */}
           <Form>
             <FormControl
               type="text"
               placeholder="Search..."
-              className="form-control"
               style={{
                 backgroundColor: "rgba(192,192,192,0.2)",
                 borderRadius: "20px",
                 border: "none",
-                padding: "0px 150px 0px 150px"
+                padding: "0px 150px 0px 70px"
               }}
               onChange={e => searchByKeyword(e)} />
           </Form>
